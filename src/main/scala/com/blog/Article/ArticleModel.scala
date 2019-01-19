@@ -1,17 +1,16 @@
 package com.blog.Article
 
 import java.sql.Timestamp
-
-import com.blog.Core.Database.DatabaseConnector
+import com.blog.Core.Database.{DatabaseConnector, SlickSupport}
 import slick.sql.SqlProfile.ColumnOption.SqlType
 
-private[Article] trait ArticleModel {
+private[Article] trait ArticleModel extends SlickSupport{
 
   protected val databaseConnector: DatabaseConnector
 
   import databaseConnector.profile.api._
 
-  class Articles(tag: Tag) extends Table[ArticleObject](tag, "Articles") {
+  class Articles(tag: Tag) extends Table[ArticleObject](tag, "articles") {
 
     def id: Rep[Int] = column[Int]("id", O.PrimaryKey)
 
@@ -21,7 +20,7 @@ private[Article] trait ArticleModel {
 
     def title: Rep[String] = column[String]("title")
 
-    def author: Rep[Int] = column[Int]("author")
+    def author: Rep[Int] = column[Int]("author_id")
 
     def body: Rep[String] = column[String]("body")
 

@@ -2,9 +2,9 @@ package com.blog.Core.Modules
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import com.blog.Article.{ArticleService, ArticleStorage, JdbcArticleStorage}
+import com.blog.Article.{ArticleRoutes, ArticleService, ArticleStorage, JdbcArticleStorage}
 import com.blog.Core.Config
-import com.blog.Core.Database.DatabaseConnector
+import com.blog.Core.Database.{DatabaseConnector, DatabaseMigrationManager}
 import com.blog.Core.Http.HttpRoute
 import com.softwaremill.macwire._
 
@@ -17,6 +17,12 @@ trait ConfigModule {
 }
 
 trait ScalaJDBCModule extends ConfigModule {
+
+  lazy val databaseMigrationManager = new DatabaseMigrationManager(
+    config.database.jdbcUrl,
+    config.database.username,
+    config.database.password
+  )
 
   lazy val databaseConnector =
     new DatabaseConnector(
@@ -42,5 +48,6 @@ trait AkkaModule {
 
 
 trait EndpointModule extends AkkaModule with ServiceModule {
+  lazy val articleRoutes: ArticleRoutes = wire[ArticleRoutes]
   lazy val httpRoute: HttpRoute = wire[HttpRoute]
 }

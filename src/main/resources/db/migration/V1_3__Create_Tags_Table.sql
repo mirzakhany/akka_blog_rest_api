@@ -1,8 +1,8 @@
 CREATE TABLE tags (
   id         BIGINT PRIMARY KEY,
   tag        VARCHAR(100) NOT NULL,
-  created_at TIMESTAMP   NOT NULL DEFAULT current_timestamp,
-)
+  created_at TIMESTAMP   NOT NULL DEFAULT current_timestamp
+);
 
 CREATE TABLE articles_tags (
   id BIGINT PRIMARY KEY,

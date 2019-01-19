@@ -35,6 +35,9 @@ libraryDependencies ++= Seq(
   // Postgres driver
   "org.postgresql" % "postgresql" % "42.1.4",
 
+  // Migration for SQL databases
+  "org.flywaydb" % "flyway-core" % "4.2.0",
+
   "com.github.tminglei"         %% "slick-pg_spray-json"  % "0.16.3",
   "com.github.tminglei"         %% "slick-pg"             % "0.16.3",
 

@@ -13,6 +13,8 @@ object Boot extends App {
 
     import modules._
 
+    databaseMigrationManager.migrateDatabaseSchema()
+
     sys.addShutdownHook(actorSystem.terminate())
     sys.addShutdownHook(databaseConnector.closeDB())
 

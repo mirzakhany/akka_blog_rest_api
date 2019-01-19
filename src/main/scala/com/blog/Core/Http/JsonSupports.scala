@@ -1,5 +1,6 @@
 package com.blog.Core.Http
 
+import java.sql.Timestamp
 import java.time.format.DateTimeFormatter
 import java.time.{LocalDate, LocalDateTime}
 import java.util.UUID
@@ -30,6 +31,17 @@ trait JsonSupports extends DefaultJsonProtocol {
 
     def read(value: JsValue): LocalDate = value match {
       case JsString(x) => LocalDate.parse(x, iso_date)
+      case x => throw new RuntimeException(s"Unexpected type ${x.getClass.getName} when trying to parse LocalDateTime")
+    }
+  }
+
+  implicit val TimestampFormat: RootJsonFormat[Timestamp] = new RootJsonFormat[Timestamp] {
+    private val iso_date = DateTimeFormatter.ISO_DATE
+
+    def write(x: Timestamp) = JsString(iso_date.format(x.toInstant))
+
+    def read(value: JsValue): Timestamp = value match {
+      case JsString(x) => Timestamp.valueOf(x)
       case x => throw new RuntimeException(s"Unexpected type ${x.getClass.getName} when trying to parse LocalDateTime")
     }
   }

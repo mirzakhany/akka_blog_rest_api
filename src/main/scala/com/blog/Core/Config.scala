@@ -20,5 +20,5 @@ object Config {
     }
 }
 
-private case class HttpConfig(host: String, port: Int)
-private case class DatabaseConfig(jdbcUrl: String, username: String, password: String)
+protected case class HttpConfig(host: String, port: Int)
+protected case class DatabaseConfig(jdbcUrl: String, username: String, password: String)

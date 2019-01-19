@@ -18,6 +18,9 @@ trait SlickSupport extends PostgresProfiler with JsonSupports {
       }
     )
 
+//  implicit val timestampMapper: BaseColumnType[Timestamp] =
+//    MappedColumnType.base[Timestamp, String](_.toString(), Timestamp.valueOf)
+
   implicit val dateMapper: BaseColumnType[Date] = MappedColumnType.base[Date, String](_.toString, Date.valueOf)
   implicit val localDateMapper: BaseColumnType[LocalDate] =
     MappedColumnType.base[LocalDate, String](_.toString, LocalDate.parse(_, shortDateFormatter))
